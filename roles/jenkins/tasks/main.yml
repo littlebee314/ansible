@@ -11,15 +11,15 @@
     name: openjdk-8-jdk
     state: present
 
-- name: download jenkins.repo
-  apt_repository:
-    repo: deb https://pkg.jenkins.io/debian-stable binary/
-    state: present
-
 - name: import jenkins key
   apt_key:
     state: present
     url: https://pkg.jenkins.io/debian/jenkins.io.key
+
+- name: download jenkins.repo
+  apt_repository:
+    repo: deb https://pkg.jenkins.io/debian-stable binary/
+    state: present
 
 - name: install jenkins
   apt:
