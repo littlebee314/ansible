@@ -59,7 +59,7 @@ ud = Base64(Join('\n', [
 
 t.add_resource(ec2.Instance(
     "instance",
-    ImageId="ami-9c9443e3",
+    ImageId="ami-0cd744adeca97abb1",
     InstanceType="t2.micro",
     SecurityGroups=[Ref("SecurityGroup")],
     KeyName=Ref("KeyPair"),

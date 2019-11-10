@@ -1,25 +1,29 @@
 - name: Removing old version of JAVA from Amazon Linux
-  yum:
-    name: java-1.7.0-openjdk
+  apt:
+    name: openjdk-7-jdk
     state: absent
+- name: Update repositories 
+  apt:
+   update_cache: yes
 
 - name: Install specific supported version of JAVA
   yum:
-    name: java-1.8.0-openjdk
+    name: openjdk-8-jdk
     state: present
 
-- name: Add Jenkins repository
-  shell: wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
-
-- name: Import Jenkins GPG key
-  rpm_key:
+- name: download jenkins.repo
+  apt_repository:
+    repo: deb https://pkg.jenkins.io/debian-stable binary/
     state: present
-    key: https://pkg.jenkins.io/redhat/jenkins.io.key
 
-- name: Install Jenkins
-  yum:
-    name: jenkins-2.99
-    enablerepo: jenkins
+- name: import jenkins key
+  apt_key:
+    state: present
+    url: https://pkg.jenkins.io/debian/jenkins.io.key
+
+- name: install jenkins
+  apt:
+    name: jenkins
     state: present
 
 - name: Start Jenkins

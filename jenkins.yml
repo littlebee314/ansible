@@ -3,4 +3,4 @@
   become: yes
   roles:
     - jenkins
-    - helloworld
+    - nodejs
