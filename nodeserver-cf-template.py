@@ -66,7 +66,8 @@ t.add_resource(ec2.SecurityGroup(
 
 ud = Base64(Join('\n', [
     "#!/bin/bash",
-    "sudo apt update && sudo apt install -y git ansible",
+    "sudo apt update && sudo apt install -y git ansible python-pip",
+    "sudo pip install boto",
     AnsiblePullCmd,
     "echo '*/10 * * * * {}' > /etc/cron.d/ansiblepull".format(AnsiblePullCmd)
 ]))
