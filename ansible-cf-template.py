@@ -17,7 +17,7 @@ PublicCidrIP = str(ip_network(get_ip()))
 AppName = "helloworld"
 GithubAccount = "littlebee314"
 GithubAnsibleURL = "https://github.com/{}/ansible".format(GithubAccount)
-AnsiblePullCmd = "/usr/local/bin/ansible-pull -U {} {}.yml -i localhost".format(GithubAnsibleURL,AppName)
+AnsiblePullCmd = "/usr/bin/ansible-pull -U {} {}.yml -i localhost".format(GithubAnsibleURL,AppName)
 
 t = Template()
 
@@ -51,10 +51,9 @@ t.add_resource(ec2.SecurityGroup(
 
 ud = Base64(Join('\n', [
     "#!/bin/bash",
-    "sudo yum install --enablerepo=epel -y git",
-    "pip install ansible",
+    "sudo apt update && sudo apt install -y git ansible",
     AnsiblePullCmd,
-    "echo '*/10 * * * * {}' > /etc/init.d/ansiblepull".format(AnsiblePullCmd)
+    "echo '*/10 * * * * {}' > /etc/cron.d/ansiblepull".format(AnsiblePullCmd)
 ]))
 
 t.add_resource(ec2.Instance(
