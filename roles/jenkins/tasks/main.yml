@@ -7,7 +7,7 @@
    update_cache: yes
 
 - name: Install specific supported version of JAVA
-  yum:
+  apt:
     name: openjdk-8-jdk
     state: present
 
