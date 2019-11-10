@@ -105,13 +105,14 @@ t.add_resource(IAMPolicy(
     PolicyName="Allow53",
     PolicyDocument=Policy(
         Statement=[
-            Effect=Allow,
-            Action=[Action("s3","*")],
-            Resource=["*"]]
-        )
+            Statement(
+                Effect=Allow,
+                Action=[Action("s3","*")],
+                Resource=["*"])
+        ]
     ),
     Roles=[Ref("Role")]
-)
+))
 
 t.add_output(Output(
     "InstancePublicIp",
